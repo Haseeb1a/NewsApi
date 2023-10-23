@@ -1,8 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:newsapp/view/homepage.dart';
-// import 'package:newsapp/views/homeScreen/home.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ArticleView extends StatefulWidget {
@@ -23,16 +20,6 @@ class _ArticleViewState extends State<ArticleView> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          // leading: IconButton(
-          //     onPressed: () {
-          //       Navigator.of(context).pop(MaterialPageRoute(
-          //         builder: (context) => Homepage(),
-          //       ));
-          //     },
-          //     icon: const Icon(
-          //       Icons.arrow_back,
-          //       color: Colors.black,
-          //     )),
           backgroundColor: Colors.white,
             title: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
