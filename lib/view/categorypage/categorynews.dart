@@ -1,8 +1,11 @@
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:newsapp/controller/categorycontroller.dart';
 import 'package:newsapp/model/articalemodel.dart';
+import 'package:provider/provider.dart';
 import '../../services/categorynews.dart';
 import '../homepage/widget/tiles.dart';
+
 class CatrgoryNews extends StatefulWidget {
   final String catogory;
   CatrgoryNews({required this.catogory});
@@ -12,26 +15,29 @@ class CatrgoryNews extends StatefulWidget {
 }
 
 class _CatrgoryNewsState extends State<CatrgoryNews> {
-  List<Atrticlemodel> articles = [];
-  bool _loading = true;
-  getcategoryNews() async {
-    NewsCategoty newsServices = NewsCategoty();
-    await newsServices.getNewsCategoty(widget.catogory);
-    articles = newsServices.newsCategoty;
-    setState(() {
-      _loading = false;
-    });
-  }
+  // List<Atrticlemodel> articles = [];
+  // bool _loading = true;
+  // getcategoryNews() async {
+  //   NewsCategoty newsServices = NewsCategoty();
+  //   await newsServices.getNewsCategoty(widget.catogory);
+  //   articles = newsServices.newsCategoty;
+  //   setState(() {
+  //     _loading = false;
+  //   });
+  // }
 
   @override
   void initState() {
-    
-    getcategoryNews();
+     final Categorydata =
+        Provider.of<CategoryController>(context, listen: false);
+  Categorydata.fetchCategoryNews;
     // TODO: implement initState
   }
 
   @override
   Widget build(BuildContext context) {
+    final Categorydata =
+        Provider.of<CategoryController>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
           title: const Row(
@@ -54,7 +60,7 @@ class _CatrgoryNewsState extends State<CatrgoryNews> {
             ],
           ),
         ),
-        body: _loading
+        body: Categorydata.loading
             ? Center(
                 child: Container(
                   child: CircularProgressIndicator(),
@@ -71,13 +77,13 @@ class _CatrgoryNewsState extends State<CatrgoryNews> {
                           child: ListView.builder(
                             physics: ClampingScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: articles.length,
+                            itemCount: Categorydata.articles.length,
                             itemBuilder: (context, index) {
                               return BlogTile(
-                                imageUrl: articles[index].urltoimage.toString(),
-                                title: articles[index].title.toString(),
-                                desc: articles[index].desription.toString(),
-                                Url: articles[index].url.toString(),
+                                imageUrl:Categorydata. articles[index].urltoimage.toString(),
+                                title: Categorydata.articles[index].title.toString(),
+                                desc: Categorydata.articles[index].desription.toString(),
+                                Url: Categorydata.articles[index].url.toString(),
                               );
                             },
                           ),

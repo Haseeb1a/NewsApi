@@ -1,36 +1,40 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:newsapp/controller/articlecontroller.dart';
+import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class ArticleView extends StatefulWidget {
+class ArticleView extends StatelessWidget {
   final blogUrl;
 
-  const ArticleView({super.key, this.blogUrl});
- 
+   ArticleView({super.key, this.blogUrl});
 
-  @override
-  State<ArticleView> createState() => _ArticleViewState();
-}
-
-class _ArticleViewState extends State<ArticleView> {
   final Completer<WebViewController> _completer =
       Completer<WebViewController>();
+
   @override
   Widget build(BuildContext context) {
+    // final WebViewdata = Provider.of<ArticleController>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-            title: const Row(
+          title: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'INFO ',
-                style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               ),
               Text(
                 'MATRIX',
-                style: TextStyle(color: Colors.blue,fontSize: 20,fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -45,14 +49,14 @@ class _ArticleViewState extends State<ArticleView> {
           elevation: 0,
         ),
         body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.height,
             child: WebView(
-          initialUrl: widget.blogUrl,
-          onWebViewCreated: ((WebViewController webViewController) {
-            _completer.complete(webViewController);
-          }), 
-        )),
+              initialUrl: blogUrl,
+              onWebViewCreated: ((WebViewController webViewController) {
+                _completer.complete(webViewController);
+              }),
+            )),
       ),
     );
   }

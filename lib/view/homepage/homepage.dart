@@ -1,43 +1,14 @@
 // import 'dart:html';
 import 'package:flutter/material.dart';
-import 'package:newsapp/helpes/function.dart';
-import 'package:newsapp/model/articalemodel.dart';
-import 'package:newsapp/model/catogarymodel.dart';
-import 'package:newsapp/services/newsconnection.dart';
+import 'package:newsapp/controller/homepagecontroller.dart';
 import 'package:newsapp/view/homepage/widget/tiles.dart';
+import 'package:provider/provider.dart';
 
-class Homepage extends StatefulWidget {
+class Homepage extends StatelessWidget {
   const Homepage({super.key});
-
-  @override
-  State<Homepage> createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
-  List<CategoryModel> categoriess = <CategoryModel>[];
-
-  List<Atrticlemodel> articles = <Atrticlemodel>[];
-  bool _loading = true;
-
-  getNews() async {
-    News newsServices = News();
-    await newsServices.getNews();
-    articles = newsServices.news;
-    setState(() {
-      _loading = false;
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    categoriess = articalelist;
-    getNews();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final Homedata  = Provider.of<HomeController>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Row(
@@ -60,7 +31,7 @@ class _HomepageState extends State<Homepage> {
           ],
         ),
       ),
-      body: _loading
+      body: Homedata.loading
           ? Center(
               child: Container(
                 child: CircularProgressIndicator(),
@@ -81,11 +52,11 @@ class _HomepageState extends State<Homepage> {
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
                               return CetotgoryTile(
-                                Categoryimg: categoriess[index].categoryimage,
-                                Categoryname: categoriess[index].categortname,
+                                Categoryimg:Homedata. categoriess[index].categoryimage,
+                                Categoryname: Homedata.categoriess[index].categortname,
                               );
                             },
-                            itemCount: categoriess.length,
+                            itemCount:Homedata. categoriess.length,
                           ),
                         ),
                       ),
@@ -94,13 +65,13 @@ class _HomepageState extends State<Homepage> {
                         child: ListView.builder(
                           physics: ClampingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: articles.length,
+                          itemCount: Homedata.articles.length,
                           itemBuilder: (context, index) {
                             return BlogTile(
-                              imageUrl: articles[index].urltoimage.toString(),
-                              title: articles[index].title.toString(),
-                              desc: articles[index].desription.toString(),
-                              Url: articles[index].url.toString(),
+                              imageUrl: Homedata.articles[index].urltoimage.toString(),
+                              title: Homedata.articles[index].title.toString(),
+                              desc: Homedata.articles[index].desription.toString(),
+                              Url: Homedata.articles[index].url.toString(),
                             );
                           },
                         ),
@@ -113,4 +84,3 @@ class _HomepageState extends State<Homepage> {
     );
   }
 }
-
