@@ -25,13 +25,13 @@ class _CatrgoryNewsState extends State<CatrgoryNews> {
   //     _loading = false;
   //   });
   // }
-
   @override
   void initState() {
-     final Categorydata =
+    final Categorydata =
         Provider.of<CategoryController>(context, listen: false);
-  Categorydata.fetchCategoryNews;
     // TODO: implement initState
+    super.initState();
+    Categorydata.fetchCategoryNews(widget.catogory);
   }
 
   @override
@@ -80,7 +80,7 @@ class _CatrgoryNewsState extends State<CatrgoryNews> {
                             itemCount: Categorydata.articles.length,
                             itemBuilder: (context, index) {
                               return BlogTile(
-                                imageUrl:Categorydata. articles[index].urltoimage.toString(),
+                                imageUrl: Categorydata.articles[index].urltoimage.toString(),
                                 title: Categorydata.articles[index].title.toString(),
                                 desc: Categorydata.articles[index].desription.toString(),
                                 Url: Categorydata.articles[index].url.toString(),

@@ -6,6 +6,11 @@ import '../model/catogarymodel.dart';
 import '../services/newsconnection.dart';
 
 class HomeController extends ChangeNotifier {
+  HomeController() {
+     categoriess = articalelist;
+     
+    getNews();
+  }
   List<CategoryModel> categoriess = <CategoryModel>[];
 
   List<Atrticlemodel> articles = <Atrticlemodel>[];
@@ -19,8 +24,5 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  HomeController() {
-     categoriess = articalelist;
-    getNews();
-  }
+  
 }

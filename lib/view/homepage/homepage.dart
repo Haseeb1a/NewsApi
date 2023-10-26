@@ -8,7 +8,7 @@ class Homepage extends StatelessWidget {
   const Homepage({super.key});
   @override
   Widget build(BuildContext context) {
-    final Homedata  = Provider.of<HomeController>(context);
+    final homedata  = Provider.of<HomeController>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Row(
@@ -31,7 +31,7 @@ class Homepage extends StatelessWidget {
           ],
         ),
       ),
-      body: Homedata.loading
+      body: homedata.loading
           ? Center(
               child: Container(
                 child: CircularProgressIndicator(),
@@ -52,11 +52,11 @@ class Homepage extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
                               return CetotgoryTile(
-                                Categoryimg:Homedata. categoriess[index].categoryimage,
-                                Categoryname: Homedata.categoriess[index].categortname,
+                                Categoryimg:homedata. categoriess[index].categoryimage,
+                                Categoryname: homedata.categoriess[index].categortname,
                               );
                             },
-                            itemCount:Homedata. categoriess.length,
+                            itemCount:homedata. categoriess.length,
                           ),
                         ),
                       ),
@@ -65,13 +65,13 @@ class Homepage extends StatelessWidget {
                         child: ListView.builder(
                           physics: ClampingScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: Homedata.articles.length,
+                          itemCount: homedata.articles.length,
                           itemBuilder: (context, index) {
                             return BlogTile(
-                              imageUrl: Homedata.articles[index].urltoimage.toString(),
-                              title: Homedata.articles[index].title.toString(),
-                              desc: Homedata.articles[index].desription.toString(),
-                              Url: Homedata.articles[index].url.toString(),
+                              imageUrl: homedata.articles[index].urltoimage.toString(),
+                              title: homedata.articles[index].title.toString(),
+                              desc: homedata.articles[index].desription.toString(),
+                              Url: homedata.articles[index].url.toString(),
                             );
                           },
                         ),
